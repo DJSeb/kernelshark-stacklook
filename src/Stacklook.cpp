@@ -74,33 +74,6 @@ static bool _check_function_general(const kshark_entry* entry,
            && is_visible_event && is_visible_graph;
 }
 
-#ifndef _UNMODIFIED_KSHARK // Task colors
-/**
- * @brief Returns either a default color or one present in the
- * color table of the main window's GL Widget based on Process ID of a task.
- * 
- * @param task_pid: task PID to index the task color table.
- * @param default_color: color to be used in case we fail in finding a color
- * in the colortable.
- * 
- * @returns Default color or one present in the main window's GL Widget
- * color table.
- *
- * @note It is dependent on the configuration 'SlConfig' singleton.
-*/
-static KsPlot::Color _get_task_color(int32_t task_pid, KsPlot::Color default_color) {
-    // Configuration access here.
-    const KsPlot::ColorTable& task_colors =
-        SlConfig::get_instance().main_w_ptr->graphPtr()->glPtr()->getPidColors();
-    bool task_color_exists = static_cast<bool>(task_colors.count(task_pid));
-
-    KsPlot::Color triangle_color = (task_color_exists) ?
-        task_colors.at(task_pid) : default_color;
-
-    return triangle_color;
-}
-#endif
-
 /**
  * @brief Returns either black if the background color's intensity is too great,
  * otherwise returns white. Limit to intensity is `128.0`.
@@ -189,18 +162,6 @@ static SlTriangleButton* _make_sl_button(std::vector<const KsPlot::Graph*> graph
     inner_triangle.setPoint(2, c);
 
     inner_triangle._color = col;
-#ifndef _UNMODIFIED_KSHARK // Task colors
-    // Colors are a bit wonky with sched_switch events. Using the function
-    // makes it consistent across the board.
-    if (cfg.get_use_task_colors()) {
-        int entry_pid = (event_entry->visible & KS_PLUGIN_UNTOUCHED_MASK) ?
-            event_entry->pid :
-            // "Emergency get" if some plugins messed around with the entry before
-            kshark_get_pid(event_entry);
-
-        inner_triangle._color = _get_task_color(entry_pid, col);
-    }
-#endif
 
     // Inner triangle
     auto back_triangle = KsPlot::Triangle(inner_triangle);

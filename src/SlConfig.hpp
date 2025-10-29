@@ -35,27 +35,7 @@ using allowed_t = bool;
  */
 using event_name_t = std::string;
 
-#ifndef _UNMODIFIED_KSHARK // Stack offset, mouse hover
-/**
- * @brief From which depth in the kernel stack (top being 0)
- * the preview should start.
- */
-using depth_t = uint32_t;
-
-/**
- * @brief Object holding meta information about events in Stacklook's
- * context - that being whether buttons are allowed to show up for an
- * event and from which item in the kernel stack should the preview start. 
- */
-using event_meta_t = std::pair<allowed_t, depth_t>;
-
-/**
- * @brief Map of event meta objects keyed by each event's name.
- */
-using events_meta_t = std::map<event_name_t, event_meta_t>;
-#else
 using events_meta_t = std::map<event_name_t, allowed_t>;
-#endif
 
 // For friending purposes :)
 class SlConfigWindow;
@@ -94,26 +74,6 @@ private: // Data members
     /// Used when the buttons couldn't get the color of their task.
     KsPlot::Color _button_outline_col{0, 0, 0};
 
-#ifndef _UNMODIFIED_KSHARK // Task colors, stack offset
-    ///
-    /// @brief Whether to use task colors for buttons or not.
-    bool _use_task_colors{false};
-
-    /**
-     * @brief Map of event names keyed by their names with values:
-     * 
-     * 1) If Stacklook is allowed to show a button above the event's entry.
-     * 2) Offset when viewing the kernel stack items in the preview.
-     * 
-     * @note Hard-coded values imply a defined set of supported events.
-     * 
-     * @warning The preview offset value will not have any effect if
-     * unmodified KernelShark is used.
-    */
-    events_meta_t _events_meta{
-        {{"sched/sched_switch", {true, 3}},
-         {"sched/sched_waking", {true, 3}}}};
-#else
     /**
      * @brief Map of event names keyed by their names with values:
      * 
@@ -125,14 +85,10 @@ private: // Data members
     events_meta_t _events_meta{
         {{"sched/sched_switch", true},
          {"sched/sched_waking", false}}};
-#endif
+
 public: // Functions
     static SlConfig& get_instance();
     int32_t get_histo_limit() const;
-#ifndef _UNMODIFIED_KSHARK // Task colors, stack offset
-    bool get_use_task_colors() const;
-    depth_t get_stack_offset(event_name_t evt_name) const;
-#endif    
     const KsPlot::Color get_default_btn_col() const; 
     const KsPlot::Color get_button_outline_col() const;
     const events_meta_t& get_events_meta() const;
@@ -207,20 +163,7 @@ private: // Qt data members
     /// @brief Spinbox used to change the limit of entries visible
     /// before Stacklook buttons show up.
     QSpinBox        _histo_limit;
-#ifndef _UNMODIFIED_KSHARK // Task colors
-    // Task-like coloring
 
-    /// @brief Layout used for the button and explanation of
-    /// what it does.
-    QHBoxLayout     _task_col_layout;
-
-    ///
-    /// @brief Explanation of what the checkbox next to it does.
-    QLabel          _task_col_label;
-
-    /// @brief Toggles whether to use task colors for buttons or not.
-    QCheckBox       _task_col_btn;
-#endif
     // Events meta
 
     /// @brief Layout used for the section of the config window
@@ -237,9 +180,6 @@ public: // Qt data members
 private: // Qt functions
     void update_cfg();
     void setup_histo_section();
-#ifndef _UNMODIFIED_KSHARK // Task colors
-    void setup_use_task_coloring();
-#endif
     void setup_events_meta_widget();
     void setup_layout();
     void setup_endstage();
