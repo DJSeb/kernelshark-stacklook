@@ -4,10 +4,10 @@ project(stacklook)
 
 # Plugin meta
 set(PLUGIN_NAME "stacklook")
-set(SL_VERSION "2.2.3")
+set(SL_VERSION "2.2.4u")
 
 # KernelShark meta
-set(KS_VERSION "2.6.0-numatv")
+set(KS_VERSION "2.4.0")
 
 # Ensure a default build type
 ## For customisability by the user
