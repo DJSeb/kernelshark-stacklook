@@ -1,0 +1,56 @@
+{
+  "nodes": {
+    "kshark": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "path": "../KS_fork",
+        "type": "path"
+      },
+      "original": {
+        "path": "../KS_fork",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1755416518,
+        "narHash": "sha256-uQhwIIXKyeq6nXkxihMN2sBf/eFbYIdOT8u5M3anadk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d188a12ba0c49adef9be56f84d714a0462e1e513",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1755550528,
+        "narHash": "sha256-hmwSCmYwQSPhg0KMgfuXMmQnroe/9n7uonjWVyVjc6s=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "403fb390ad8817ff7a4deacabee8041f0c2c2e3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "kshark": "kshark",
+        "nixpkgs": "nixpkgs_2"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
