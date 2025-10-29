@@ -78,10 +78,4 @@
  * 
  * They will always include information on what task's stack trace is being viewed and if
  * it has been woken up or what its previous state was.
- * 
- * @section unmodified_build Unmodified build
- * Plugin necessitated a few changes to KernelShark's source code, namely the ability to
- * do an action upon mouse hover over a plot object or allow task coloring to be used for
- * button's backgrounds. But if the user doesn't wish to use these features, the plugin
- * can be built without them. Other functionalities remain intact and working.
 */

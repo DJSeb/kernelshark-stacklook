@@ -1,3 +1,10 @@
+# 2.2.3
+(A lot of stuff changed, CHANGELOG is not necessarily useful anymore.)
+Nap rectangles have been taken out into their own plugin.
+Project was migrated from a shared repository and into its own.
+
+# No records for many versions, sadly
+
 # 1.4.4 - 2025-03-01
 
 Fixed bugs related to switching trace files, namely:

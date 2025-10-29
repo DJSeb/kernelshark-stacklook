@@ -126,7 +126,6 @@ static constexpr double _trigon_area(const ksplot_point a,
                 (c.x * (a.y - b.y))) / 2.0);
 }
 
-#ifndef _UNMODIFIED_KSHARK // Stack offset, mouse hover
 /**
  * @brief Cuts off the address and the arrow of the textual stack item.
  * If the item is too long, it is truncated to its 44 starting characters
@@ -255,7 +254,6 @@ static top_3_stack_t _get_top_three_stack_items(const char* stacktrace,
     
     return out_array;
 }
-#endif
 
 // Class functions
 
@@ -336,14 +334,10 @@ void SlTriangleButton::_draw(const KsPlot::Color&, float) const {
     _add_sched_switch_prev_state_text(_event_entry, _text, text_position);
 }
 
-#ifndef _UNMODIFIED_KSHARK // Stack offset, mouse hover
 /**
  * @brief Action on mouse moving over the plugin's plot object event.
  * Shows the task name of the stack trace and three top items in the stack.
  *
- * @warning Will not work without modified KernelShark, as hover
- * plot object's functionalities are missing in such a version.
- * 
  * @note It is dependent on the configuration 'SlConfig' singleton.
 */
 void SlTriangleButton::_mouseHover() const {    
@@ -371,4 +365,3 @@ void SlTriangleButton::_mouseHover() const {
         );
     }
 }
-#endif

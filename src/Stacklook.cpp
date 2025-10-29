@@ -74,7 +74,6 @@ static bool _check_function_general(const kshark_entry* entry,
            && is_visible_event && is_visible_graph;
 }
 
-#ifndef _UNMODIFIED_KSHARK // Task colors
 /**
  * @brief Returns either a default color or one present in the
  * color table of the main window's GL Widget based on Process ID of a task.
@@ -99,7 +98,6 @@ static KsPlot::Color _get_task_color(int32_t task_pid, KsPlot::Color default_col
 
     return triangle_color;
 }
-#endif
 
 /**
  * @brief Returns either black if the background color's intensity is too great,
@@ -189,7 +187,6 @@ static SlTriangleButton* _make_sl_button(std::vector<const KsPlot::Graph*> graph
     inner_triangle.setPoint(2, c);
 
     inner_triangle._color = col;
-#ifndef _UNMODIFIED_KSHARK // Task colors
     // Colors are a bit wonky with sched_switch events. Using the function
     // makes it consistent across the board.
     if (cfg.get_use_task_colors()) {
@@ -200,7 +197,6 @@ static SlTriangleButton* _make_sl_button(std::vector<const KsPlot::Graph*> graph
 
         inner_triangle._color = _get_task_color(entry_pid, col);
     }
-#endif
 
     // Inner triangle
     auto back_triangle = KsPlot::Triangle(inner_triangle);
